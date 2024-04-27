@@ -11,6 +11,7 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "authorsapi.settings")
+# TODO: Change inprod
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "authorsapi.settings.local")
 
 application = get_wsgi_application()

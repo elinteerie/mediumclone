@@ -18,7 +18,7 @@ env = environ.Env()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 ROOT_DIR = Path(__file__).resolve().parent.parent.parent
 
-APP_DIR = ROOT_DIR/ 'core_apps'
+APP_DIR = ROOT_DIR / "core_apps"
 
 DEBUG = env.bool('DJANGO_DEBUG', False)
 # Quick-start development settings - unsuitable for production
@@ -43,9 +43,9 @@ THIRD_PARTY_APPS =[
     "rest_framework",
     "django_filters",
     "django_countries",
-    "phonenumber_fields",
+    "phonenumber_field",
     'drf_yasg',
-    "corsheader",
+    "corsheaders",
 ]
 
 LOCAL_APPS = ['core_apps.profiles', 'core_apps.common','core_apps.users']
@@ -55,7 +55,7 @@ INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
-    "corsheader.middleware.CorsMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -95,9 +95,15 @@ DATABASES = {
     }
 }
 
-DATABASES = {
-    "default": env.db
-}
+#DATABASES = {"default": env.db("DATABASE_URL")}
+
+PASSWORD_HASHERS = [
+    "django.contrib.auth.hashers.Argon2PasswordHasher",
+    "django.contrib.auth.hashers.PBKDF2PasswordHasher",
+    "django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher",
+    "django.contrib.auth.hashers.BCryptSHA256PasswordHasher",
+    "django.contrib.auth.hashers.ScryptPasswordHasher",
+]
 
 
 # Password validation
@@ -124,19 +130,28 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = "UTC"
+TIME_ZONE = "Africa/Lagos"
 
 USE_I18N = True
 
 USE_TZ = True
 
+SITE_ID = 1
+
+ADMIN_URL = "supersecret/"
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = "static/"
+STATIC_URL = "/staticfiles/"
+STATIC_ROOT = str(ROOT_DIR/"staticfiles")
+
+MEDIA_URL = "/mediafiles/"
+MEDIA_ROOT = str(ROOT_DIR/"mediafiles")
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+CORS_URL_REGEX = r"^api/.*$"
