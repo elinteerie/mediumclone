@@ -27,7 +27,7 @@ DEBUG = env.bool('DJANGO_DEBUG', False)
 # SECURITY WARNING: keep the secret key used in production secret!
 
 # Application definition
-
+ALLOWED_HOSTS = ['*'] 
 
 DJANGO_APPS = [
     "django.contrib.admin",
@@ -157,6 +157,21 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 CORS_URL_REGEX = r"^api/.*$"
 
 AUTH_USER_MODEL = "users.User"
+CSRF_COOKIE_SECURE = False
+CSRF_COOKIE_HTTPONLY = True
+SESSION_COOKIE_SECURE = False
+
+
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
+SECURE_CROSS_ORIGIN_OPENER_POLICY = None
+CSRF_TRUSTED_ORIGINS =[
+    'http://localhost:8080',
+    'http://localhost:80',
+    'http://localhost:8000'
+
+
+]
 
 LOGGING = {
     'version': 1,
